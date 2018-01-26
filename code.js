@@ -2,6 +2,28 @@ const display_shown = symbol.controllers.display.elements.shown;
 const display_hidden = symbol.controllers.display.elements.hidden;
 const target = symbol.nodes.target;
 
+//detect if the cat has been tapped on and whether the prompt UI should be activated
+let catTapped = false;
+
+//store the cat's skin textures in an array
+let cats = [symbol.controllers.catType.elements.white,
+symbol.controllers.catType.elements.black, 
+symbol.controllers.catType.elements.ginger,
+symbol.controllers.catType.elements.silver, 
+symbol.controllers.catType.elements.tabby,
+symbol.controllers.catType.elements.birman];
+
+let cat = 5; 
+
+//calculate a random number from the cats array 
+let randomCat = Math.floor((Math.random() * cat));
+Z.HeadsetManager();
+
+//activate a random cat each time the card is scanned
+parent.on("ready", ()=>{
+    cats[randomCat].activate();
+});
+
 parent.on("show", parent_show);
 function parent_show() {
     display_hidden.reset();
@@ -56,23 +78,21 @@ symbol.controllers.main.elements.intro.on("complete", () => {
 });
 
 symbol.controllers.main.elements.jump.on("complete", () => {
-    symbol.controllers.main.elements.lookAround.reset().play();
+    if(catTapped == false){
+       symbol.controllers.fingerPrompt.elements.on.play();
+    }
+    else{
+        symbol.controllers.fingerPrompt.elements.off.activate();
+    }
+    symbol.controllers.main.elements.lookAround.play();
 });
 
 //change the cat's skin texture when the user presses the invisible hotspot plane above the cat
 symbol.nodes.hotspot.on("pointerdown", (e) => {
+    symbol.controllers.fingerPrompt.elements.off.activate();
     changeCat();
+    catTapped = true;
 });
-
-//store the cat's skin textures in an array
-let cats = [symbol.controllers.catType.elements.white,
-symbol.controllers.catType.elements.black, 
-symbol.controllers.catType.elements.ginger,
-symbol.controllers.catType.elements.silver, 
-symbol.controllers.catType.elements.tabby,
-symbol.controllers.catType.elements.birman];
-
-let cat = 5; 
 
 function changeCat() {
     cat += 1;
@@ -86,3 +106,9 @@ function changeCat() {
     cats[cat].activate();
    symbol.nodes.meow.restart(); // trigger the cat's sound effect
 }
+
+
+//loop hand prompt
+symbol.controllers.fingerPrompt.elements.on.on("complete", () => {
+	symbol.controllers.fingerPrompt.elements.on.labels.loop.play();
+});
