@@ -47,8 +47,6 @@ target.on("seen", seen);
 function seen(){
     symbol.controllers.main.elements.intro.play();  
     symbol.controllers.seenNotseen.elements.seen.activate();
-    symbol.controllers.main.elements.jump.play();
-    symbol.controllers.main.elements.lookAround.play();
     symbol.nodes.Look_For.nodes.code.deactivate();
 }
 
@@ -74,7 +72,7 @@ function firstseen(){
 
 //change the cat's jump animation when the intro animation cycle is complete
 symbol.controllers.main.elements.intro.on("complete", () => {
-    symbol.controllers.main.elements.jump.reset().play();
+    symbol.controllers.main.elements.jump.play();
 });
 
 symbol.controllers.main.elements.jump.on("complete", () => {
@@ -89,8 +87,8 @@ symbol.controllers.main.elements.jump.on("complete", () => {
 
 //change the cat's skin texture when the user presses the invisible hotspot plane above the cat
 symbol.nodes.hotspot.on("pointerdown", (e) => {
-    symbol.controllers.fingerPrompt.elements.off.activate();
     changeCat();
+    symbol.controllers.fingerPrompt.elements.off.activate();
     catTapped = true;
 });
 
