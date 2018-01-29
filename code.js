@@ -3,7 +3,7 @@ const display_hidden = symbol.controllers.display.elements.hidden;
 const target = symbol.nodes.target;
 
 //detect if the cat has been tapped on and whether the prompt UI should be activated
-let catTapped = false;
+let catTapped = false; 
 
 //store the cat's skin textures in an array
 let cats = [symbol.controllers.catType.elements.white,
