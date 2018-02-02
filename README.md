@@ -1,5 +1,5 @@
 # AR-Petshop-Tutorial
-Follow this tutorial to create an Augmented Reality business card for a petshop, with animation examples and functionality to change the virtual pet's fur colour, visit the website, get directions to the petshop location and call the petshop owner. 
+Follow this tutorial to create an Augmented Reality business card for a fictional petshop(selling cute cats!). You will find animation examples and learn how to implement functionalities such as changing the virtual pet's fur colour by tapping on it, linking websites, getting directions to the petshop location and calling the petshop owner. 
 
 Hierarchy and structure:
 Root > Trained tracking image target > content group with organised sub-groups(a square mask to hides parts of a scene, speech bubble graphics, buttons, title logo graphics, dog graphics, call to action graphics, tap prompt, sound effects and the cat model group), code script and "look for" prompt outside of the trained tracking image target content hierarhcy(this tells the user to look for the target image if they are looking away from it)
